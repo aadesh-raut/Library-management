@@ -1,5 +1,6 @@
 #include<stdio.h>
 #include<string.h>
+#include<ctype.h>
 
 void welcome();
 void reg_page();
@@ -72,6 +73,9 @@ void reg_page()
     take_libname();
     take_adname();
     take_email();
+
+    printf("Registration Successfull !!!!!!!! :)\nLoging Once again and you are good to go :)\n");
+    
 }
 
 void log_page()
@@ -123,6 +127,7 @@ void take_email()
     }
 
     if(flag==1){
+        printf("Email id checked!!!!\n");
         take_pass();
     }
     else{
@@ -133,5 +138,59 @@ void take_email()
 
 void take_pass()
 {
-    printf("Email id checked \nPlease enter the password ");
+    printf("Password: ");
+    fgets(password,100,stdin);
+    int u = 0,l = 0,s = 0,sp = 0;
+    password[strcspn(password,"\n")] = '\0';
+    int len = strlen(password);
+
+    for(int i=0;i<len;i++)
+    {
+        if(isupper(password[i])){
+            u++;
+        }
+        else if(islower(password[i])){
+            l++;
+        }
+        else if(password[i]==' '){
+            sp++;
+        }
+        else{
+            s++;
+        }
+    }
+
+    if(u<1){
+        printf("1. Password should be more than 8 characters\n2. Password should contain atleast 1 Uppercase\n3. Password should contain atleast 1 Lowercase\n4. Password should contain atleaset 1 special character\n5. Password should not contain spaces\n");
+        printf("PLease enter the password again :)\n");
+        take_pass();
+    }
+    else if (l<1)
+    {
+        printf("1. Password should be more than 8 characters\n2. Password should contain atleast 1 Uppercase\n3. Password should contain atleast 1 Lowercase\n4. Password should contain atleaset 1 special character\n5. Password should not contain spaces\n");
+        printf("Please enter the password again :)\n");
+        take_pass();
+    }
+    else if (s<1)
+    {
+        printf("1. Password should be more than 8 characters\n2. Password should contain atleast 1 Uppercase\n3. Password should contain atleast 1 Lowercase\n4. Password should contain atleaset 1 special character\n5. Password should not contain spaces\n");
+        printf("Please enter the password again :)\n");
+        take_pass();
+    }
+    else if (sp!=0){
+        printf("1. Password should be more than 8 characters\n2. Password should contain atleast 1 Uppercase\n3. Password should contain atleast 1 Lowercase\n4. Password should contain atleaset 1 special character\n5. Password should not contain spaces\n");
+        printf("Please enter the password again :)\n");
+        take_pass();
+    }
+    else if (len<8)
+    {
+        printf("1. Password should be more than 8 characters\n2. Password should contain atleast 1 Uppercase\n3. Password should contain atleast 1 Lowercase\n4. Password should contain atleaset 1 special character\n5. Password should not contain spaces\n");
+        printf("Please enter the password again :)\n");
+        take_pass();
+    }
+    else{
+        printf("Password Accepted !!!!!!\n");
+    }
+    
+    
 }
