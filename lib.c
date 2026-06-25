@@ -2,6 +2,12 @@
 #include<string.h>
 #include<ctype.h>
 
+//dummy file name
+char filename[100];
+
+// library counter
+int libs = 0;
+
 void welcome();
 void reg_page();
 void log_page();
@@ -13,11 +19,17 @@ void take_adname();
 void take_email();
 void take_pass();
 
+
+//
 char choice;
 char lib_name[100];
 char admin_name[100];
 char admin_email[100];
 char password[100];
+
+//
+
+FILE *libraries;
 
 int main()
 {
@@ -69,31 +81,70 @@ void reg_page()
     printf("Welcome to Registration Page\n");
     printf("\n");
     printf("\n");
-    printf("Enter the \n1. Library name\n2. Admin Name(______@gmail.com)\n3. Admin Email Id\n4. Password( More then 8 characters)\n");
+    printf("Enter the \n1. Library name\n2. Admin Name\n3. Admin Email Id\n4. Password( More then 8 characters)\n");
     take_libname();
     take_adname();
     take_email();
 
     printf("Registration Successfull !!!!!!!! :)\nLoging Once again and you are good to go :)\n");
     
+    libraries = fopen("libraries.txt","a+");
+
+    fprintf(libraries,"Library ID: %s\n",libs);
+
+    snprintf(filename,100,"Library_%d_books.txt",libs);
+
+    FILE *lib_books = fopen(filename,"a+");
+
+    snprintf(filename,100,"Library_%d_users.txt",libs);
+
+    FILE *lib_users = fopen(filename,"a+");
+
+    snprintf(filename,100,"Library_%d_transactions.txt",libs);
+
+    FILE *lib_transactions = fopen(filename,"a+");
+
+    welcome();
 }
 
 void log_page()
 {
     printf("Welcome to Login page\n");
-
 }
 
 void take_libname()
 {
     printf("Name of Library: ");
     fgets(lib_name,100,stdin);
+    lib_name[strcspn(lib_name,"\n")] = '\0';
+
+
+    libraries = fopen("libraries.txt","a+");
+
+    fprintf(libraries,"==================================================\n");
+
+    fprintf(libraries,"==================================================\n");
+
+    fprintf(libraries,"Library Name: %s\n",lib_name);
+
+    fclose(libraries);
+
+    // snprintf(filename,100,"%s.txt",lib_name);
+
+    // FILE *newlib = fopen(filename,"a");
 }
 
 void take_adname()
 {
     printf("Admin Name: ");
     fgets(admin_name,100,stdin);
+    admin_name[strcspn(admin_name,"\n")] = '\0';
+
+    libraries = fopen("libraries.txt","a+");
+
+    fprintf(libraries,"Admin Name: %s\n",admin_name);
+
+    fclose(libraries);
 }
 
 void take_email()
@@ -127,6 +178,13 @@ void take_email()
     }
 
     if(flag==1){
+
+        libraries = fopen("libraries.txt","a+");
+
+        fprintf(libraries,"Admin Email: %s\n",admin_email);
+
+        fclose(libraries);
+
         printf("Email id checked!!!!\n");
         take_pass();
     }
@@ -189,6 +247,19 @@ void take_pass()
         take_pass();
     }
     else{
+
+        libraries = fopen("libraries.txt","a+");
+
+        fprintf(libraries,"Password: %s\n",password);
+
+        fprintf(libraries,"==================================================\n");
+
+        fprintf(libraries,"==================================================\n");
+
+        fprintf(libraries,"\n\n");
+
+        fclose(libraries);
+
         printf("Password Accepted !!!!!!\n");
     }
     
