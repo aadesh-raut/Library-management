@@ -19,9 +19,16 @@ void take_adname();
 void take_email();
 void take_pass();
 
+// login successfull
+void log_sus();
+void books_man();
+void trans_man();
+void user_man();
+
 // file credentials
 
 char line[200];
+char lib_ID[200];
 
 
 //
@@ -135,6 +142,14 @@ void log_page()
     while(fgets(line,200,libraries) != NULL)
     {
         line[strcspn(line,"\n")] = '\0';
+        if(flag_pass == 0 && flag_email == 0){
+            lib_ID[0] = '\0';
+            strcat(lib_ID,line);
+            if(strlen(lib_ID)>12){
+                strcpy(lib_ID,lib_ID+12);
+            }
+            break;
+        }
         if(strcmp(line,admin_email) == 0){
             flag_email = 0;
         }
@@ -142,6 +157,8 @@ void log_page()
             flag_pass = 0;
         }
     }
+    fclose(libraries);
+
     if(flag_email != 0){
         printf("Incorrect Email ID !!!!!!");
     }
@@ -151,6 +168,8 @@ void log_page()
     }
     else{
         printf("Login Successfull!!!!");
+        printf("Loged in to library no. :%s\n",lib_ID);
+        log_sus();
     }
     
 }
@@ -171,10 +190,6 @@ void take_libname()
     fprintf(libraries,"Library Name: %s\n",lib_name);
 
     fclose(libraries);
-
-    // snprintf(filename,100,"%s.txt",lib_name);
-
-    // FILE *newlib = fopen(filename,"a");
 }
 
 void take_adname()
@@ -307,4 +322,31 @@ void take_pass()
 
         printf("Password Accepted !!!!!!\n");
     }
+}
+
+void log_sus(){
+    printf("1. Book Management");
+    printf("2. Member Management");
+    printf("3. Issue Book");
+    printf("4. Return Book");
+    printf("7. Logout");
+
+    printf("How can i help you: ");
+    scanf("%c",&choice);
+
+    if(choice == '1')
+    {
+        books_man();
+    }
+    else
+    {
+        user_man();
+    }
+}
+
+void books_man()
+{
+    snprintf(filename,100,"Library_%s_books.txt",lib_ID);
+    FILE *books = fopen(filename,"a+");
+    fclose(books);
 }
