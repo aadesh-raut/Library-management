@@ -19,13 +19,19 @@ void take_adname();
 void take_email();
 void take_pass();
 
+// file credentials
+
+char line[200];
+
 
 //
 char choice;
-char lib_name[100];
-char admin_name[100];
-char admin_email[100];
-char password[100];
+char lib_name[200];
+char admin_name[200];
+char admin_email[200];
+char password[200];
+char input_email[200];
+char input_pass[200];
 
 //
 
@@ -87,10 +93,6 @@ void reg_page()
     take_email();
 
     printf("Registration Successfull !!!!!!!! :)\nLoging Once again and you are good to go :)\n");
-    
-    libraries = fopen("libraries.txt","a+");
-
-    fprintf(libraries,"Library ID: %s\n",libs);
 
     snprintf(filename,100,"Library_%d_books.txt",libs);
 
@@ -104,12 +106,53 @@ void reg_page()
 
     FILE *lib_transactions = fopen(filename,"a+");
 
+    libs++;
+
     welcome();
 }
 
 void log_page()
 {
+    printf("==================================================\n");
     printf("Welcome to Login page\n");
+    printf("==================================================\n");
+
+    printf("Enter the Email ID of Admin: \n");
+    fgets(input_email,100,stdin);
+    input_email[strcspn(input_email,"\n")] = '\0';
+    printf("Enter the Password: \n");
+    fgets(input_pass,100,stdin);
+    input_pass[strcspn(input_pass,"\n")] = '\0';
+
+    int flag_email = 1;
+    int flag_pass = 1;
+
+    sprintf(admin_email,"Admin Email: %s",input_email);
+    sprintf(password,"Password: %s",input_pass);
+
+    libraries = fopen("libraries.txt","r");
+
+    while(fgets(line,200,libraries) != NULL)
+    {
+        line[strcspn(line,"\n")] = '\0';
+        if(strcmp(line,admin_email) == 0){
+            flag_email = 0;
+        }
+        if(strcmp(line,password) == 0){
+            flag_pass = 0;
+        }
+    }
+    if(flag_email != 0){
+        printf("Incorrect Email ID !!!!!!");
+    }
+    else if (flag_email == 0 && flag_pass != 0)
+    {
+        printf("Incorrect Password !!!!!");
+    }
+    else{
+        printf("Login Successfull!!!!");
+    }
+    
 }
 
 void take_libname()
@@ -252,6 +295,8 @@ void take_pass()
 
         fprintf(libraries,"Password: %s\n",password);
 
+        fprintf(libraries,"Library ID: %d\n",libs);
+
         fprintf(libraries,"==================================================\n");
 
         fprintf(libraries,"==================================================\n");
@@ -262,6 +307,4 @@ void take_pass()
 
         printf("Password Accepted !!!!!!\n");
     }
-    
-    
 }

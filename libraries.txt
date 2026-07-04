@@ -1,29 +1,10 @@
 ==================================================
 ==================================================
-Library Name: asdfghjk
-Admin Name: qwertyuio
-Admin Email: asdfg@dfgh.sdfgh
-Password: Aadesh05@
-==================================================
-==================================================
-
-
-==================================================
-==================================================
-Library Name: qwedfgh
-Admin Name: zxcfghjio
-Admin Email: asdfg@ertyu.cvbn
+Library Name: Aadesh's Library
+Admin Name: Aadesh Sanjay Raut
+Admin Email: aadeshraut05@gmail.com
 Password: Aadesh@05
-==================================================
-==================================================
-
-
-==================================================
-==================================================
-Library Name: qwertyu
-Admin Name: asdfghj
-Admin Email: sdfg@zxfg.sdfg
-Password: Aadesh05102007@
+Library ID: 0
 ==================================================
 ==================================================
 
